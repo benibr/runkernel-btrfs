@@ -1,3 +1,4 @@
 [submodule "linux"]
 	path = linux
 	rl = ./linux/
+	url = ./linux/
