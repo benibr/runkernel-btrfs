@@ -1,0 +1,14 @@
+[Distribution]
+Distribution=arch
+
+[Output]
+Format=gpt_btrfs
+Output=btrfs-snapshot-obsolessence-tester.img
+Bootable=true
+Password=test
+Autologin=true
+Hostname=btrfs-snapshot-obsolessence
+
+[Content]
+Packages=btrfs-progs
+Cache=/var/cache/pacman/pkg/
