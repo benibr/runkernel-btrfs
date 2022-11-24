@@ -16,12 +16,12 @@ done
 
 if [ "$BUILD_KERNEL" == "1" ]; then
   pushd linux
-  make
+  make -j 17
   popd
 fi
 if [ "$BUILD_PROGS" == "1" ]; then
   pushd mkosi.extra/btrfs-progs/
-  ./autogen.sh  && ./configure && make
+  ./autogen.sh  && ./configure && make -j 17
   popd
 fi
 if [ "$RECREATE_IMAGE" == "1" ]; then
