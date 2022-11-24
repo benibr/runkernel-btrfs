@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 while getopts ":kip" parameter; do
   case "${parameter}" in
     k)
