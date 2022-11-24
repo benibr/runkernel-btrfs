@@ -37,7 +37,8 @@ qemu-system-x86_64 \
   -machine type=pc \
   -kernel linux/arch/x86/boot/bzImage \
   -nographic \
-  -m 2g \
+  -m 1g \
+  -smp 8 \
   -append "console=ttyS0 rw root=/dev/vda2" \
   -device virtio-scsi-pci,id=scsi \
   -drive file=./btrfs-snapshot-obsolessence-tester.img,format=raw,if=virtio \
