@@ -1,6 +1,6 @@
 #!/bin/bash
 
-while getopts ":bip" parameter; do
+while getopts ":kip" parameter; do
   case "${parameter}" in
     k)
       BUILD_KERNEL=1
@@ -38,7 +38,7 @@ qemu-system-x86_64 \
   -kernel linux/arch/x86/boot/bzImage \
   -nographic \
   -m 2g \
-  -append "console=ttyS0 root=/dev/vda2" \
+  -append "console=ttyS0 rw root=/dev/vda2" \
   -device virtio-scsi-pci,id=scsi \
   -drive file=./btrfs-snapshot-obsolessence-tester.img,format=raw,if=virtio \
   -drive file=$IMAGE,format=raw,if=virtio
