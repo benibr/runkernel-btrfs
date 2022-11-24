@@ -2,11 +2,11 @@
 
 while getopts ":bip" parameter; do
   case "${parameter}" in
-    b)
-      BUILD=1
+    k)
+      BUILD_KERNEL=1
       ;;
     p)
-      BUILD_PACKAGE=1
+      BUILD_PROGS=1
       ;;
     i)
       RECREATE_IMAGE=1
@@ -14,19 +14,17 @@ while getopts ":bip" parameter; do
   esac
 done
 
-if [ "$BUILD" == "1" ]; then
+if [ "$BUILD_KERNEL" == "1" ]; then
   pushd linux
   make
   popd
 fi
-if [ "$BUILD_PACKAGE" == "1" ]; then
-  pushd btrfs-progs-git/
-  makepkg -f
+if [ "$BUILD_PROGS" == "1" ]; then
+  pushd mkosi.extra/btrfs-progs/
+  ./autogen.sh  && ./configure && make
   popd
 fi
 if [ "$RECREATE_IMAGE" == "1" ]; then
-  LAST_PKG=$(ls -1 btrfs-progs-git/btrfs-progs-git-*tar.zst | tail -n1)
-  cp $LAST_PKG mkosi.extra/
   sudo mkosi -f build
 fi
 
