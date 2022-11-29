@@ -9,6 +9,9 @@ Password=test
 Autologin=true
 Hostname=btrfs-snapshot-obsolessence
 
+[Partitions]
+RootSize=5G
+
 [Content]
-Packages=btrfs-progs
+Packages=btrfs-progs,vim,xxd,strace,binutils
 Cache=/var/cache/pacman/pkg/

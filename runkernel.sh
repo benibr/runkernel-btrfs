@@ -2,8 +2,11 @@
 
 set -e
 
-while getopts ":kip" parameter; do
+while getopts ":tkip" parameter; do
   case "${parameter}" in
+    t)
+      RUN_TESTS=1
+      ;;
     k)
       BUILD_KERNEL=1
       ;;
@@ -23,7 +26,14 @@ if [ "$BUILD_KERNEL" == "1" ]; then
 fi
 if [ "$BUILD_PROGS" == "1" ]; then
   pushd mkosi.extra/btrfs-progs/
-  ./autogen.sh  && ./configure && make -j 17
+  ./autogen.sh \
+    && ./configure \
+    && make D=1 -j 17
+  popd
+fi
+if [ "$RUN_TESTS" == "1" ]; then
+  pushd mkosi.extra/btrfs-progs/
+    make D=1 test
   popd
 fi
 if [ "$RECREATE_IMAGE" == "1" ]; then
@@ -41,7 +51,7 @@ qemu-system-x86_64 \
   -nographic \
   -m 1g \
   -smp 8 \
-  -append "console=ttyS0 rw root=/dev/vda2" \
+  -append "console=ttyS0 rw root=/dev/vda2 debug" \
   -device virtio-scsi-pci,id=scsi \
   -drive file=./btrfs-snapshot-obsolessence-tester.img,format=raw,if=virtio \
   -drive file=$IMAGE,format=raw,if=virtio
